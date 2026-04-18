@@ -66,7 +66,8 @@ client.on('interactionCreate', async interaction => {
 
   // /teamspin
   if (interaction.commandName === 'teamspin') {
-    const voiceChannel = interaction.member.voice.channel;
+    const member = await interaction.guild.members.fetch(interaction.user.id);
+    const voiceChannel = member.voice.channel;
 
     if (!voiceChannel) {
         return interaction.reply('Bitte trete zuerst einem Voice bei"');
