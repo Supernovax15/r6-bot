@@ -70,23 +70,27 @@ client.on('interactionCreate', async interaction => {
     const voiceChannel = member.voice.channel;
 
     if (!voiceChannel) {
-        return interaction.reply('Bitte trete zuerst einem Voice bei"');
+        return interaction.reply('Bitte trete zuerst einem Voice bei');
     }
 
     const members = voiceChannel.members;
 
-    if (member.size === 0) {
+    if (members.size === 0) {
         return interaction.reply('Niemand im Voicechannel');
     }
+
+    const side = interaction.options.getString('side');
 
     let result = '🎰 **Team Operator Picks:**\n\n'
 
     members.forEach(member => {
         if (member.user.bot) return;
 
-        const isDef = Math.random() < 0.5;
+        const isDef = side === 'mix'
+            ? Math.random() < 0.5
+            : side === 'def';
 
-        const pool = isDef 
+        const pool = isDef
             ? operators.defenders
             : operators.attackers;
 
@@ -96,7 +100,7 @@ client.on('interactionCreate', async interaction => {
     });
 
     await interaction.reply(result);
-  }    
+  }
 });
 
 client.login(process.env.TOKEN);

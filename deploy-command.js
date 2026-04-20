@@ -18,7 +18,16 @@ const commands = [
 
     new SlashCommandBuilder()
             .setName('teamspin')
-            .setDescription('Gibt allen im Voice Channel einen zufälligen Operator'),
+            .setDescription('Gibt allen im Voice Channel einen zufälligen Operator')
+            .addStringOption(option =>
+              option.setName('side')
+                    .setDescription('Wähle Attacker, Defender oder Mixed')
+                    .addChoices(
+                      { name: 'Attacker', value: 'att' },
+                      { name: 'Defender', value: 'def' },
+                      { name: 'Mixed', value: 'mix' }
+                    )
+                    .setRequired(true)),
 
     new SlashCommandBuilder()
             .setName('reroll')
