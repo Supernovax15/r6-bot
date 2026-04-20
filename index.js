@@ -79,7 +79,7 @@ client.on('interactionCreate', async interaction => {
         return interaction.reply('Niemand im Voicechannel');
     }
 
-    const side = interaction.options.getString('side') || 'mix';
+    const side = interaction.options.getString('side');
 
     let result = '🎰 **Team Operator Picks:**\n\n'
 
