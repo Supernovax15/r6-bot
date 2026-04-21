@@ -9,10 +9,11 @@ const commands = [
     .setDescription('Bekomme einen zufälligen Operator')
     .addStringOption(option =>
       option.setName('side')
-            .setDescription('Wähle Attacker oder Defender')
+    .setDescription('Wähle Attacker, Defender oder Mixed')
             .addChoices(
             { name: 'Attacker', value: 'att' },
-            { name: 'Defender', value: 'def' }
+            { name: 'Defender', value: 'def' },
+            { name: 'Mixed', value: 'mix' }
             )
             .setRequired(true)),
 

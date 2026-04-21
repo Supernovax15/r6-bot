@@ -26,16 +26,22 @@ client.on('interactionCreate', async interaction => {
   if (interaction.commandName === 'spin') {
     const side = interaction.options.getString('side');
 
-    let pool = side === 'def'
-      ? operators.defenders
-      : operators.attackers;
+    let chosenSide;
+    let pool;
+    if (side === 'mix') {
+      chosenSide = Math.random() < 0.5 ? 'def' : 'att';
+      pool = chosenSide === 'def' ? operators.defenders : operators.attackers;
+    } else {
+      chosenSide = side;
+      pool = side === 'def' ? operators.defenders : operators.attackers;
+    }
 
     const pick = pool[Math.floor(Math.random() * pool.length)];
 
-    lastPicks.set(interaction.user.id, { side });
+    lastPicks.set(interaction.user.id, { side: chosenSide });
     rerollUsed.set(interaction.user.id, false);
 
-    await interaction.reply(`🎯 Dein Operator: **${pick}**`);
+    await interaction.reply(`🎯 Dein Operator: **${pick}** (${chosenSide === 'def' ? 'DEF' : 'ATT'})`);
   }
 
   // /reroll
